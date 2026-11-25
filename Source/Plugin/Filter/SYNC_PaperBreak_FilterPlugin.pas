@@ -146,7 +146,7 @@ begin
   if not TableInitialized then
   begin
     SetupPluginTable(FILTER_FLAG_VIDEO or FILTER_FLAG_USERDATA,
-      '紙消失','SYNC','紙消失 / SYNC_PaperBreak v0.1.0',ProcVideo,nil);
+      '紙消失','SYNC','紙消失 / SYNC_PaperBreak v1.0.0',ProcVideo,nil);
     RegisterPaperParameters;
     GetPluginTable^.Func_Create := CreateSession;
     GetPluginTable^.Func_Destroy := DestroySession;

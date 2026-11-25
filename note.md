@@ -4,7 +4,7 @@
 
 - Delphiプロジェクトは `SYNC_PaperBreak.dproj`。本体はWin64用の `SYNC_PaperBreak.auf2` 1本で、画像効果は「紙消失」、グループは「SYNC」。
 - `D:\DelphiProg\MyApp\SYNC_WeatherFX` から `.dproj` の設定、共通SDK型、登録処理、リソース、ライセンスを継承した。新規プロジェクトの名前・GUID・参照ユニットを登録し、Win64 Debug／ReleaseのAUF2出力先を `C:\ProgramData\aviutl2\Plugin\SYNC_PaperBreak\` に設定した。
-- `Setup` はWeatherFXのフォルダーを配布済みZIPも含めてそのままコピーした。中のスクリプト・カタログ・ZIPはWeatherFX用。
+- 初期作成時のSetupはWeatherFXから継承した。v1.0.0の配布に合わせて作成スクリプトとカタログをPaperBreak用へ移行した。
 - `SYNC_PianoRoll` の3D深度調査では、カメラ制御のないホストの `DrawPoly` で不透明面が送信順に重なることが確認されている。紙消失は同じ頂点ベースの描画を、固定視点と専用の深度バッファで行う。
 - SDK付属の `MediaObject.cpp` と `filter2.h` で、ホストの画像テクスチャを直接扱う方式、ABIの並び、乗算済みアルファを照合した。 [AviUtl ExEdit2 Plugin SDK](https://spring-fragrance.mints.ne.jp/aviutl/)
 

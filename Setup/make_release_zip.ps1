@@ -3,11 +3,11 @@
     [string]$XxhsumPath
 )
 
-# SYNC_AquaFX/setupを継承。既存のWeatherFX本番AUF2を梱包し、末尾バージョンのハッシュを更新する。
+# SYNC_WeatherFXのSetupを継承。PaperBreakの配布用AUF2を梱包し、末尾バージョンのハッシュを更新する。
 # ビルド・ホスト起動・ネットワークへの公開は行わない。
 # Copyright (c) 2026 VRAMの魔術師 / SPDX-License-Identifier: GPL-3.0-only
 $ErrorActionPreference = 'Stop'
-$packageName = 'SYNC_WeatherFX'
+$packageName = 'SYNC_PaperBreak'
 $projectDir = Split-Path -Parent $PSScriptRoot
 if (-not $ReleaseDirectory) { $ReleaseDirectory = Join-Path $env:ProgramData "aviutl2\Plugin\$packageName" }
 $pluginName = "$packageName.auf2"
@@ -20,7 +20,7 @@ if (-not $XxhsumPath) {
     $XxhsumPath = Join-Path $projectDir 'Win64\Dependencies\xxHash-0.8.4\xxhsum.exe'
     if (-not (Test-Path -LiteralPath $XxhsumPath -PathType Leaf)) {
         $xxhsum = Get-Command xxhsum.exe -CommandType Application -ErrorAction SilentlyContinue
-        if (-not $xxhsum) { throw 'xxhsum.exe is required. See setup\README.md.' }
+        if (-not $xxhsum) { throw 'xxhsum.exe is required. See Setup\README.md.' }
         $XxhsumPath = $xxhsum.Source
     }
 }
@@ -37,7 +37,7 @@ $tempReadme = "$tempBase-readme.tmp"
 $catalogBackup = "$tempBase-previous-catalog.tmp"
 
 Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
-$lock = [Threading.Mutex]::new($false, 'Local\VRAMWIZ.SYNC_WeatherFX.ReleaseZip')
+$lock = [Threading.Mutex]::new($false, 'Local\VRAMWIZ.SYNC_PaperBreak.ReleaseZip')
 $ownsLock = $false
 try {
     try { $ownsLock = $lock.WaitOne(0) }
@@ -64,7 +64,7 @@ try {
     }
     if (@($entry.version).Count -eq 0) { throw 'The catalog must contain a release version.' }
     if ($entry.version[0].version -cne 'v1.0.0') {
-        throw 'The first public WeatherFX version must be v1.0.0.'
+        throw 'The first public PaperBreak version must be v1.0.0.'
     }
     $version = $catalog[0].version[-1]
     $releaseDate = [datetime]::MinValue
@@ -104,7 +104,7 @@ try {
     [IO.File]::WriteAllText($tempNotices, $notices, [Text.UTF8Encoding]::new($false))
     # ルートREADMEを配布用にも使用する。画像はソース公開先を参照し、ZIP内の不足リンクを避ける。
     $readme = [IO.File]::ReadAllText((Join-Path $projectDir 'README.md'))
-    $readme = $readme.Replace('](Sample/', "](https://raw.githubusercontent.com/vramwiz/$packageName/main/Sample/")
+    $readme = $readme.Replace('](Sample/', "](https://raw.githubusercontent.com/vramwiz/$packageName/$($version.version)/Sample/")
     [IO.File]::WriteAllText($tempReadme, $readme, [Text.UTF8Encoding]::new($false))
     foreach ($file in $packageFiles.Values) {
         if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { throw "Package file not found: $file" }

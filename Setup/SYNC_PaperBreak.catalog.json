@@ -3,7 +3,7 @@
         "id":  "VRAMWIZ.SYNC_PaperBreak",
         "name":  "紙消失",
         "type":  "フィルタプラグイン",
-        "summary":  "画像を紙に見立て、破断・折りたたみ・燃焼など9種類の演出で消失させるフィルター",
+        "summary":  "画像を紙に見立て、破断や折りたたみなど9種類の方法で消す",
         "description":  "https://raw.githubusercontent.com/vramwiz/SYNC_PaperBreak/refs/heads/main/README.md",
         "author":  "VRAMの魔術師",
         "repoURL":  "https://github.com/vramwiz/SYNC_PaperBreak/",
